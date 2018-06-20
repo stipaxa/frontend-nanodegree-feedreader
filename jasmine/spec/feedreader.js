@@ -78,15 +78,25 @@ $(function() {
     });
 
     /* TODO: Write a new test suite named "Initial Entries" */
-    describe('initial entries', function() {
+    describe('Initial entries', function() {
         /* TODO: Write a test that ensures when the loadFeed
          * function is called and completes its work, there is at least
          * a single .entry element within the .feed container.
          * Remember, loadFeed() is asynchronous so this test will require
          * the use of Jasmine's beforeEach and asynchronous done() function.
          */
-        it('loadFeed work', fuction() {
+        
+        // Call async function and wait for the result. 
+        beforeEach(function(done) {
+            loadFeed(4, done);
+        });
 
+        // Validate the result.
+        it('loadFeed function work', function() {
+            $('.feed').each(function(index, feed) {
+                let num_entries = $(feed).find('.entry').length; 
+                expect(num_entries).not.toBe(0);
+            });
         });
     });
 
