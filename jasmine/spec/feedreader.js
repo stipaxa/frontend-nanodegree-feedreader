@@ -88,7 +88,7 @@ $(function() {
         
         // Call async function and wait for the result. 
         beforeEach(function(done) {
-            loadFeed(4, done);
+            loadFeed(0, done);
         });
 
         // Validate the result.
@@ -101,9 +101,23 @@ $(function() {
     });
 
     /* TODO: Write a new test suite named "New Feed Selection" */
-
+    describe('New feed selection', function() {
         /* TODO: Write a test that ensures when a new feed is loaded
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
+        let content1, content2;
+        beforeEach(function(done) {
+            loadFeed(1, function() {
+                content1 = $('.feed').children().children('.entry').text();
+                loadFeed(2, function() {
+                    content2 = $('.feed').children().children('.entry').text();
+                    done();
+                });
+            });
+        });
+        it('content actually changes', function() {
+            expect(content1).not.toEqual(content2);
+        });
+    });
 }());
