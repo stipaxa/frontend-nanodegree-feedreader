@@ -70,6 +70,9 @@ $(function() {
          it('menu changes visibility', function() {
             if($('.menu-icon-link').click()) {
                 expect($('body').hasClass('menu-hidden')).toBe(false);
+                if($('.menu-icon-link').click()) {
+                    expect($('body').hasClass('menu-hidden')).toBe(true);
+                }
             }
             else {
                 expect($('body').hasClass('menu-hidden')).toBe(true);
@@ -106,11 +109,14 @@ $(function() {
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
+        // Variables for content
         let content1, content2;
         beforeEach(function(done) {
             loadFeed(1, function() {
+                // Save the content from feed with index=1 
                 content1 = $('.feed').children().children('.entry').text();
                 loadFeed(2, function() {
+                    // Save the content from feed with index=2
                     content2 = $('.feed').children().children('.entry').text();
                     done();
                 });
